@@ -8,10 +8,20 @@ To use this tool, first download the clean feature images. These images are used
 
 ### Download Clean Feature Images
 
-The clean feature images used in this repository are composed of bounding box regions from the VOC2007 dataset's test set, converted into images. You can download these prepared images from the following link:
-[Clean Feature Images](https://drive.google.com/drive/folders/1Ao5X3ZYSMYwfxApmgSleotgbtRxeCV14?usp=drive_link)
+The clean feature images used in this repository are composed of bounding box regions from the VOC2007 dataset's test set, converted into images. You can either create your own folder of JPG images as clean feature images or use the prepared set, which contains approximately 15,000 images.
 
-Alternatively, you may also use your own folder of JPG images as clean feature images. Ensure that the images are representative of the types of objects and scenes your model will process.
+You can download the prepared clean feature images from the following link:
+[Clean Feature Images](https://drive.google.com/file/d/1o-C_XYsIJc1PaBCX7mc9Jrq7_y6QKwtb/view?usp=sharing)
+
+Alternatively, you can use the following commands in your bash terminal to download and unzip the clean feature images:
+
+```bash
+pip install gdown
+gdown https://drive.google.com/uc?id=1o-C_XYsIJc1PaBCX7mc9Jrq7_y6QKwtb
+unzip clean_feature_images.zip
+```
+This will download and extract the clean_feature_images.zip file, containing the images needed for the Detector Cleanse process.
+
 
 ### Setting up the Environment
 
