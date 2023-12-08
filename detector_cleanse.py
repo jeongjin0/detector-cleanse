@@ -1,6 +1,8 @@
 import torch
 import torchvision.transforms as T
 
+import tqdm
+
 
 def bbox_iou(bbox1, bbox2):
     ymin1, xmin1, ymax1, xmax1 = bbox1
@@ -36,13 +38,16 @@ def perturb_image(image, bbox, feature, alpha=0.5):
 
 
 def detector_cleanse(ori_img, model, clean_features, m, delta, iou_threshold=0.5):
+    ori_img = T.ToTensor()(ori_img).cuda()
+    model = model.cuda()
+
     prediction = model.predict([ori_img], visualize=True)
     _bboxes, _labels, _scores, probs = prediction
 
     poisoned_flag = False
     coordinates = []
 
-    for bbox in _bboxes[0]:
+    for bbox in tqdm(_bboxes[0]):
         H_sum = 0.0
         num_tested = 0
         for feature in clean_features:
