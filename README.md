@@ -44,7 +44,7 @@ To run the Detector Cleanse, use the following command-line arguments:
 - `--weight`: Path to the weight file of the model.
 
 ```bash
-python main.py --n 100 --m 0.51 --delta 0.16 --image_path 'path/to/image.jpg' --clean_feature_path 'path/to/clean_feature_images' --weight 'path/to/model/weight.pth'
+python main.py --n 100 --m 0.51 --delta 0.25 --image_path 'path/to/image.jpg' --clean_feature_path 'path/to/clean_feature_images' --weight 'path/to/model/weight.pth'
 ```
 
 ### Additional Customization
