@@ -57,11 +57,13 @@ For detailed instructions on how to customize this implementation for your speci
 
 ## :)
 
+We acknowledge the use of code from the [simple-faster-rcnn-pytorch](https://github.com/chenyuntc/simple-faster-rcnn-pytorch/tree/master) repository, specifically for defining the Faster R-CNN model. This part of the code is borrowed under the terms of the MIT License of the original repository. We have adapted and extended it for our purposes. See [LICENSE](https://github.com/chenyuntc/simple-faster-rcnn-pytorch/blob/master/LICENSE) in the original repository for more details.
+
 We welcome contributions to this project! If you have suggestions for improvements or want to contribute code, please feel free to open an issue or a pull request.
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-### Algorithm
+#### Algorithm
 
 The image below represents the Detector Cleanse algorithm as outlined in the BadDet Appendix.
 
