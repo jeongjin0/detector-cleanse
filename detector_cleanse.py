@@ -4,24 +4,7 @@ import torchvision.transforms as T
 import tqdm
 
 
-def bbox_iou(bbox1, bbox2):
-    ymin1, xmin1, ymax1, xmax1 = bbox1
-    ymin2, xmin2, ymax2, xmax2 = bbox2
-
-    xi1 = max(xmin1, xmin2)
-    yi1 = max(ymin1, ymin2)
-    xi2 = min(xmax1, xmax2)
-    yi2 = min(ymax1, ymax2)
-
-    inter_area = max(xi2 - xi1, 0) * max(yi2 - yi1, 0)
-
-    bbox1_area = (xmax1 - xmin1) * (ymax1 - ymin1)
-    bbox2_area = (xmax2 - xmin2) * (ymax2 - ymin2)
-
-    union_area = bbox1_area + bbox2_area - inter_area
-    iou = inter_area / union_area
-
-    return iou
+from bbox_tool import box_iou_ymin_xmin_ymax_xmax, bbox_iou_xmin_ymin_xmax_ymax, box_iou_cx_cy_w_h
 
 def calculate_entropy(scores):
     return -torch.sum(scores * torch.log2(scores), dim=0).mean()
@@ -41,7 +24,7 @@ def detector_cleanse(ori_img, model, clean_features, m, delta, iou_threshold=0.5
     ori_img = T.ToTensor()(ori_img).cuda()
     model = model.cuda()
 
-    prediction = model.predict([ori_img], visualize=True)
+    prediction = model.predict([ori_img])
     _bboxes, _labels, _scores, probs = prediction
 
     poisoned_flag = False
@@ -52,10 +35,10 @@ def detector_cleanse(ori_img, model, clean_features, m, delta, iou_threshold=0.5
         num_tested = 0
         for feature in clean_features:
             perturbed_image = perturb_image(ori_img, bbox, feature)
-            perturbed_prediction = model.predict([perturbed_image], visualize=True)
+            perturbed_prediction = model.predict([perturbed_image])
             perturbed_bboxes = perturbed_prediction[0][0]
 
-            ious = bbox_iou(torch.tensor(bbox).unsqueeze(0), torch.tensor(perturbed_bboxes))
+            ious = box_iou_ymin_xmin_ymax_xmax(torch.tensor(bbox).unsqueeze(0), torch.tensor(perturbed_bboxes))
             max_iou, max_index = torch.max(ious, dim=1)
             if max_iou.item() < iou_threshold:
                 continue

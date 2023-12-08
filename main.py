@@ -24,7 +24,7 @@ def main():
     args = parse_arguments()
 
     # Load and randomly select clean features
-    print("Loading clean feature files")
+    print("Loading clean feature files...")
     clean_feature_files = glob.glob(f'{args.clean_feature_path}/*.jpg')  # Update the path as needed
     print(args.clean_feature_path)
     selected_features = random.sample(clean_feature_files, args.n)
@@ -32,12 +32,12 @@ def main():
     print("Complete")
 
     # Load the image to be analyzed
-    print("Loading image")
+    print("Loading image...")
     image = Image.open(args.image_path)
     print("Complete")
 
 
-    print("Loading model")
+    print("Loading model...")
     model = FasterRCNNVGG16(n_fg_class=20)
 
     state_dict = torch.load(args.weight)
