@@ -1,6 +1,6 @@
 # Detector Cleanse
 
-This repository is an unofficial implementation of Detector Cleanse, extending the functionality of the [simple-faster-rcnn-pytorch](https://github.com/chenyuntc/simple-faster-rcnn-pytorch/tree/master) to include a method for identifying potentially poisoned input in object detection models.
+This repository contains an unofficial implementation of Detector Cleanse, complementing the object detection models by identifying potentially poisoned inputs. The implementation is based on the algorithm introduced in the paper [BadDet: Backdoor Attacks on Object Detection](https://arxiv.org/abs/2205.14497).
 
 ## Getting Started
 
@@ -42,3 +42,10 @@ python main.py --n 100 --m 0.51 --delta 0.16 --image_path 'path/to/image.jpg' --
 Since this implementation of Detector Cleanse is based on a specific repository ([simple-faster-rcnn-pytorch](https://github.com/chenyuntc/simple-faster-rcnn-pytorch/tree/master)), additional modifications might be necessary to test it with your own model. To accommodate different object detection models or different setups, you may need to make changes in the code.
 
 For detailed instructions on how to customize this implementation for your specific needs, please refer to the [Customization Guide](CustomizationGuide.md).
+
+
+### Algorithm
+
+The image below represents the Detector Cleanse algorithm as outlined in the BadDet Appendix.
+
+![Algorithm](algorithm.jpg)
