@@ -54,6 +54,13 @@ Since this implementation of Detector Cleanse is based on a specific repository 
 For detailed instructions on how to customize this implementation for your specific needs, please refer to the [Customization Guide](CustomizationGuide.md).
 
 
+
+## :)
+
+We welcome contributions to this project! If you have suggestions for improvements or want to contribute code, please feel free to open an issue or a pull request.
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
 ### Algorithm
 
 The image below represents the Detector Cleanse algorithm as outlined in the BadDet Appendix.
