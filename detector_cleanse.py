@@ -6,11 +6,7 @@ from skimage.transform import resize
 
 from tqdm import tqdm
 
-from PIL import Image
-
-
 from bbox_tool import bbox_iou_ymin_xmin_ymax_xmax, bbox_iou_xmin_ymin_xmax_ymax, bbox_iou_cx_cy_w_h
-from transform import preprocess
 
 
 def calculate_entropy(scores):
@@ -32,27 +28,20 @@ def perturb_image(image, bbox, feature, alpha=0.5):
     return perturbed_image
 
 
-def detector_cleanse(img, size, model, clean_features, m, delta, iou_threshold=0.5):
+def detector_cleanse(img, model, clean_features, m, delta, alpha, iou_threshold=0.5):
     model = model.cuda()
 
     prediction = model.predict([img], [img.shape[1:]])
     _bboxes, _labels, _scores, probs = prediction
-    print("\nModel Prediction :")
-    print(_bboxes)
-    print(_labels)
-    print(_scores)
-    print()
-
-    original_width, original_height = size
 
     poisoned_flag = False
     coordinates = []
 
-    for bbox in tqdm(_bboxes[0]):
+    for bbox in _bboxes[0]:
         H_sum = 0.0
         num_tested = 0
         for feature in clean_features:
-            perturbed_image = perturb_image(img, bbox, feature)
+            perturbed_image = perturb_image(img, bbox, feature, alpha)
 
             perturbed_prediction = model.predict([perturbed_image], [img.shape[1:]])
             perturbed_bboxes = perturbed_prediction[0][0]
@@ -71,18 +60,14 @@ def detector_cleanse(img, size, model, clean_features, m, delta, iou_threshold=0
             if max_iou < iou_threshold:
                 continue
 
-            H_sum += calculate_entropy(probs[0][max_index].clone().detach())
+            H_sum += calculate_entropy(probs[0][max_index].clone().detach())            
             num_tested += 1
 
         if num_tested == 0:
-          print("pass")
           continue
         H_avg = H_sum / num_tested
         if H_avg <= m - delta or H_avg >= m + delta:
-            print("Trigger Detected, H_avg :", H_avg)
             poisoned_flag = True
             coordinates.append(bbox)
-        else:
-            print("Clean, H_avg :", H_avg)
 
     return poisoned_flag, coordinates
