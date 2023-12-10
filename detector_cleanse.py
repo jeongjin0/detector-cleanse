@@ -31,69 +31,58 @@ def perturb_image(image, bbox, feature, alpha=0.5):
 
     return perturbed_image
 
-def save_numpy_array_as_jpg(array, file_name):
-    # Assuming the input array is in the format (3, w, h) and the values are scaled between 0 and 1
-    array = array[[2, 1, 0], :, :]
-    if array.max() <= 1:
-        array = array * 255  # Scale to 0-255 range if not already
-
-    # Convert to uint8
-    array = array.astype(np.uint8)
-
-    # Transpose the array to the format (h, w, 3)
-    array = array.transpose(1, 2, 0)
-
-    # Convert to an image and save
-    image = Image.fromarray(array)
-    image.save(file_name + '.jpg')
 
 def detector_cleanse(img, size, model, clean_features, m, delta, iou_threshold=0.5):
     model = model.cuda()
 
     prediction = model.predict([img], [img.shape[1:]])
     _bboxes, _labels, _scores, probs = prediction
+    print("\nModel Prediction :")
     print(_bboxes)
     print(_labels)
     print(_scores)
     print()
 
-    # Assuming the size is a tuple (width, height)
     original_width, original_height = size
-
-    # Calculate the scale factor
-    # Assuming img is a tensor or ndarray with shape (channels, height, width)
 
     poisoned_flag = False
     coordinates = []
-    j=0
-    i=0
 
     for bbox in tqdm(_bboxes[0]):
         H_sum = 0.0
         num_tested = 0
-        j+=1
         for feature in clean_features:
             perturbed_image = perturb_image(img, bbox, feature)
 
-            save_numpy_array_as_jpg(perturbed_image.copy(),"test/"+str(j)+str(i))
-            i+=1
-            perturbed_prediction = model.predict([perturbed_image], [size])
-            print(perturbed_prediction[3])
-            perturbed_bboxes = perturbed_prediction[0][0][0]
+            perturbed_prediction = model.predict([perturbed_image], [img.shape[1:]])
+            perturbed_bboxes = perturbed_prediction[0][0]
 
-            ious = bbox_iou_ymin_xmin_ymax_xmax(torch.tensor(bbox), torch.tensor(perturbed_bboxes))
-            max_iou, max_index = torch.max(ious, dim=0)
-            if max_iou.item() < iou_threshold:
+            
+            if len(perturbed_bboxes) == 0:
+              continue
+
+            ious = list()
+
+            for perturbed_bbox in perturbed_bboxes:
+              ious.append(bbox_iou_ymin_xmin_ymax_xmax(torch.tensor(bbox), torch.tensor(perturbed_bbox)).item())
+            
+            max_iou, max_index = max(ious), np.argmax(ious)
+            
+            if max_iou < iou_threshold:
                 continue
 
-            H_sum += calculate_entropy(torch.tensor(probs[0][max_index.item()]))
+            H_sum += calculate_entropy(probs[0][max_index].clone().detach())
             num_tested += 1
 
         if num_tested == 0:
           print("pass")
-        H_avg = H_sum / num_tested if num_tested != 0 else 0
+          continue
+        H_avg = H_sum / num_tested
         if H_avg <= m - delta or H_avg >= m + delta:
+            print("Trigger Detected, H_avg :", H_avg)
             poisoned_flag = True
             coordinates.append(bbox)
+        else:
+            print("Clean, H_avg :", H_avg)
 
     return poisoned_flag, coordinates
