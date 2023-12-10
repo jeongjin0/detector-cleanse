@@ -28,9 +28,16 @@ def main():
     # Load and randomly select clean features
     print("Loading clean feature files...")
     clean_feature_files = glob.glob(f'{args.clean_feature_path}/*.jpg')  # Update the path as needed
-    print(args.clean_feature_path)
     selected_features = random.sample(clean_feature_files, args.n)
     clean_features = [Image.open(feature_path) for feature_path in selected_features]
+    
+    for i in range(len(clean_features)):
+        feature = clean_features[i].convert('RGB')
+        feature = np.asarray(feature, dtype=np.float32)
+        feature = feature.transpose((2, 0, 1))
+        feature = preprocess(feature)
+        clean_features[i] = feature
+
     print("Complete")
 
     # Load the image to be analyzed
@@ -38,11 +45,10 @@ def main():
     f = Image.open(args.image_path)
     ori_img = f.convert('RGB')
     ori_img = np.asarray(ori_img, dtype=np.float32)
-    ori_img.transpose((2, 0, 1))
+    ori_img = ori_img.transpose((2, 0, 1))
     img = preprocess(ori_img)
 
     size = ori_img.shape[1:]
-    size = [size[0][0].item(), size[1][0].item()]
 
     print("Complete")
 
