@@ -153,7 +153,7 @@ class FasterRCNN(nn.Module):
         """
         if preset == 'visualize':
             self.nms_thresh = 0.3
-            self.score_thresh = 0.05
+            self.score_thresh = 0.7
         elif preset == 'evaluate':
             self.nms_thresh = 0.3
             self.score_thresh = 0.05
@@ -184,7 +184,7 @@ class FasterRCNN(nn.Module):
         return bbox, label, score
 
     @nograd
-    def predict(self, imgs,sizes=None,visualize=True):
+    def predict(self, imgs,sizes=None,visualize=False):
         """Detect objects from images.
 
         This method predicts objects for each image.

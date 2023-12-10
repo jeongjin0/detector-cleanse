@@ -1,5 +1,7 @@
 import torch
 
+import numpy as np
+
 import argparse
 from PIL import Image
 import random
@@ -33,7 +35,15 @@ def main():
 
     # Load the image to be analyzed
     print("Loading image...")
-    image = Image.open(args.image_path)
+    f = Image.open(args.image_path)
+    ori_img = f.convert('RGB')
+    ori_img = np.asarray(ori_img, dtype=np.float32)
+    ori_img.transpose((2, 0, 1))
+    img = preprocess(ori_img)
+
+    size = ori_img.shape[1:]
+    size = [size[0][0].item(), size[1][0].item()]
+
     print("Complete")
 
 
@@ -48,7 +58,7 @@ def main():
     print("Complete")
 
     print("Detecting...")
-    poisoned, coordinates = detector_cleanse(image, model, clean_features, args.m, args.delta)
+    poisoned, coordinates = detector_cleanse(img, size, model, clean_features, args.m, args.delta)
     print("Complete")
 
     if poisoned:
