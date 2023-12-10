@@ -4,7 +4,7 @@ import torchvision.transforms as T
 import tqdm
 
 
-from bbox_tool import box_iou_ymin_xmin_ymax_xmax, bbox_iou_xmin_ymin_xmax_ymax, box_iou_cx_cy_w_h
+from bbox_tool import bbox_iou_ymin_xmin_ymax_xmax, bbox_iou_xmin_ymin_xmax_ymax, bbox_iou_cx_cy_w_h
 
 def calculate_entropy(scores):
     return -torch.sum(scores * torch.log2(scores), dim=0).mean()
