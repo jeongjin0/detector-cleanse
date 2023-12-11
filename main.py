@@ -19,6 +19,7 @@ def parse_arguments():
     parser.add_argument('--m', type=float, required=True, help='Detection mean')
     parser.add_argument('--delta', type=float, required=True, help='Detection threshold')
     parser.add_argument('--alpha', type=float, default=0.5, help='Blending ratio')
+    parser.add_argument('--iouthresh', type=float, default=0.5, help='Threshold iou')
     parser.add_argument('--image_path', type=str, default='images', help='Path to the image(s) to be analyzed')
     parser.add_argument('--clean_feature_path', type=str ,default='clean_feature_images', help='Path to the clean_feature image folder')
     parser.add_argument('--weight', type=str, required=True, help='Path to weight of the model')
@@ -70,7 +71,7 @@ def main():
         img = preprocess(ori_img)
 
         # ... [rest of the detection and analysis code] ...
-        poisoned, coordinates = detector_cleanse(img, model, clean_features, args.m, args.delta, args.alpha)
+        poisoned, coordinates = detector_cleanse(img, model, clean_features, args.m, args.delta, args.alpha, args.iouthresh)
 
         total += 1
         if "modified" in image_file:
