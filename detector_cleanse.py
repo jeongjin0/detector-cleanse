@@ -4,9 +4,14 @@ import torchvision.transforms as T
 import numpy as np
 from skimage.transform import resize
 
+from PIL import Image
+
 from tqdm import tqdm
 
 from bbox_tool import bbox_iou_ymin_xmin_ymax_xmax, bbox_iou_xmin_ymin_xmax_ymax, bbox_iou_cx_cy_w_h
+
+mean = np.array([0.485, 0.456, 0.406])
+std = np.array([0.229, 0.224, 0.225])
 
 
 def calculate_entropy(scores):
@@ -26,6 +31,17 @@ def perturb_image(image, bbox, feature, alpha=0.5):
     perturbed_image[:, ymin:ymax, xmin:xmax] = blended_region
 
     return perturbed_image
+
+
+def save_numpy_array_as_jpg(array, file_name):
+    array = array.transpose((1, 2, 0))
+    array = std * array + mean
+    array = np.clip(array, 0, 1)
+
+    array = (array * 255).astype(np.uint8)
+
+    image = Image.fromarray(array)
+    image.save(file_name + '.jpg')
 
 
 def detector_cleanse(img, model, clean_features, m, delta, alpha, iou_threshold=0.5):
@@ -49,7 +65,9 @@ def detector_cleanse(img, model, clean_features, m, delta, alpha, iou_threshold=
             
             if len(perturbed_bboxes) == 0:
               continue
-
+            
+            save_numpy_array_as_jpg(perturbed_image, "test/"+str(0))
+            
             ious = list()
 
             for perturbed_bbox in perturbed_bboxes:
