@@ -2,6 +2,8 @@
 
 This repository contains an unofficial implementation of Detector Cleanse, complementing the object detection models by identifying potentially poisoned inputs. The implementation is based on the algorithm introduced in the paper [BadDet: Backdoor Attacks on Object Detection](https://arxiv.org/abs/2205.14497).
 
+![example](imgs/example.jpg)
+
 ## Getting Started
 
 To use this tool, first download the clean feature images. These images are used by the Detector Cleanse algorithm to determine if an input image has been tampered with.
@@ -67,4 +69,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 The image below represents the Detector Cleanse algorithm as outlined in the BadDet Appendix.
 
-![Algorithm](algorithm.jpg)
+![Algorithm](imgs/algorithm.jpg)
