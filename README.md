@@ -19,7 +19,7 @@ Alternatively, you can use the following commands in your bash terminal to downl
 
 ```bash
 pip install gdown
-gdown https://drive.google.com/uc?id=1o-C_XYsIJc1PaBCX7mc9Jrq7_y6QKwtb
+gdown https://drive.google.com/file/d/1Qj_5s84HXdgDWG3KRn-zW7oIRGvrouer/view?usp=sharing
 unzip clean_feature_images.zip
 ```
 This will download and extract the clean_feature_images.zip file, containing the images needed for the Detector Cleanse process.
