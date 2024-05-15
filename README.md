@@ -13,7 +13,7 @@ To use this tool, first download the clean feature images. These images are used
 The clean feature images used in this repository are composed of bounding box regions from the VOC2007 dataset's test set, converted into images. You can either create your own folder of JPG images as clean feature images or use the prepared set, which contains approximately 15,000 images.
 
 You can download the prepared clean feature images from the following link:
-[Clean Feature Images](https://drive.google.com/file/d/1o-C_XYsIJc1PaBCX7mc9Jrq7_y6QKwtb/view?usp=sharing)
+[Clean Feature Images](https://drive.google.com/file/d/1Qj_5s84HXdgDWG3KRn-zW7oIRGvrouer/view?usp=sharing)
 
 Alternatively, you can use the following commands in your bash terminal to download and unzip the clean feature images:
 
