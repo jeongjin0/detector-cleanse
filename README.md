@@ -3,10 +3,12 @@
 This repository contains an unofficial implementation of Detector Cleanse, complementing the object detection models by identifying potentially poisoned inputs. The implementation is based on the algorithm introduced in the paper [BadDet: Backdoor Attacks on Object Detection](https://arxiv.org/abs/2205.14497).
 
 ![example](imgs/example.jpg)
+<br /><br />
 
 ## Getting Started
 
 To use this tool, first download the clean feature images. These images are used by the Detector Cleanse algorithm to determine if an input image has been tampered with.
+<br />
 
 ### Download Clean Feature Images
 
@@ -23,7 +25,7 @@ gdown https://drive.google.com/file/d/1Qj_5s84HXdgDWG3KRn-zW7oIRGvrouer/view?usp
 unzip clean_feature_images.zip
 ```
 This will download and extract the clean_feature_images.zip file, containing the images needed for the Detector Cleanse process.
-
+<br />
 
 ### Setting up the Environment
 
@@ -48,14 +50,14 @@ To run the Detector Cleanse, use the following command-line arguments:
 ```bash
 python main.py --n 100 --m 0.51 --delta 0.25 --image_path 'path/to/image.jpg' --clean_feature_path 'path/to/clean_feature_images' --weight 'path/to/model/weight.pth'
 ```
+<br /><br />
 
 ### Additional Customization
 
 Since this implementation of Detector Cleanse is based on a specific repository ([simple-faster-rcnn-pytorch](https://github.com/chenyuntc/simple-faster-rcnn-pytorch/tree/master)), additional modifications might be necessary to test it with your own model. To accommodate different object detection models or different setups, you may need to make changes in the code.
 
 For detailed instructions on how to customize this implementation for your specific needs, please refer to the [Customization Guide](CustomizationGuide.md).
-
-
+<br /><br />
 
 ## :)
 
@@ -64,6 +66,7 @@ We acknowledge the use of code from the [simple-faster-rcnn-pytorch](https://git
 We welcome contributions to this project! If you have suggestions for improvements or want to contribute code, please feel free to open an issue or a pull request.
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+<br /><br />
 
 #### Algorithm
 
