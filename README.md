@@ -3,7 +3,7 @@
 This repository contains an unofficial implementation of Detector Cleanse, complementing the object detection models by identifying potentially poisoned inputs. The implementation is based on the algorithm introduced in the paper [BadDet: Backdoor Attacks on Object Detection](https://arxiv.org/abs/2205.14497).
 
 ![example](imgs/example.jpg)
-<br /><br /><br />
+<br /><br />
 
 
 ## Getting Started
