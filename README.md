@@ -3,7 +3,8 @@
 This repository contains an unofficial implementation of Detector Cleanse, complementing the object detection models by identifying potentially poisoned inputs. The implementation is based on the algorithm introduced in the paper [BadDet: Backdoor Attacks on Object Detection](https://arxiv.org/abs/2205.14497).
 
 ![example](imgs/example.jpg)
-<br /><br />
+<br /><br /><br />
+
 
 ## Getting Started
 
@@ -50,7 +51,7 @@ To run the Detector Cleanse, use the following command-line arguments:
 ```bash
 python main.py --n 100 --m 0.51 --delta 0.25 --image_path 'path/to/image.jpg' --clean_feature_path 'path/to/clean_feature_images' --weight 'path/to/model/weight.pth'
 ```
-<br /><br />
+<br />
 
 ### Additional Customization
 
@@ -68,7 +69,7 @@ We welcome contributions to this project! If you have suggestions for improvemen
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 <br /><br />
 
-#### Algorithm
+### Algorithm
 
 The image below represents the Detector Cleanse algorithm as outlined in the BadDet Appendix.
 
