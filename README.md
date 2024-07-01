@@ -30,11 +30,15 @@ This will download and extract the clean_feature_images.zip file, containing the
 
 ### Setting up the Environment
 
-Ensure Python is installed along with the necessary packages. Use the provided `requirements.txt` file to install the required packages:
-
+Ensure Python is installed along with the necessary packages.
 ```bash
-pip install -r requirements.txt
+pip install pytorch
+pip install visdom scikit-image tqdm fire ipdb pprint matplotlib torchnet
 
+```
+start visdom for visualization
+```Bash
+nohup python -m visdom.server &
 ```
 
 ### Usage
