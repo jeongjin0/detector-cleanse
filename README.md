@@ -5,12 +5,6 @@ This repository is an unofficial implementation of Detector Cleanse. The impleme
 ![example](imgs/example.jpg)
 <br /><br />
 
-
-## Getting Started
-
-To use this tool, first download the clean feature images. These images are used by the Detector Cleanse algorithm to determine if an input image has been tampered with.
-<br />
-
 ### Download Clean Feature Images
 
 The clean feature images used in this repository are composed of bounding box regions from the VOC2007 dataset's test set, converted into images. You can either create your own folder of JPG images as clean feature images or use the prepared set, which contains approximately 15,000 images.
