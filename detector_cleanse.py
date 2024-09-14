@@ -78,7 +78,8 @@ def detector_cleanse(img, model, clean_features, m, delta, alpha, iou_threshold=
             if max_iou < iou_threshold:
                 continue
 
-            H_sum += calculate_entropy(probs[0][max_index].clone().detach())            
+            perturbed_probs = perturbed_prediction[3]
+            H_sum += calculate_entropy(perturbed_probs[0][max_index].clone().detach())            
             num_tested += 1
 
         if num_tested == 0:
