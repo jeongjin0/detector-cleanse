@@ -46,10 +46,17 @@ To run the Detector Cleanse, use the following command-line arguments:
 - `--clean_feature_path`: Path to the clean feature image folder. Default is 'clean_feature_images'.
 - `--weight`: Path to the weight file of the model.
 
+#### Analyzing Images
+You can analyze either a single image or multiple images in a folder using the same command:
+
 ```bash
-python main.py --n 100 --m 0.51 --delta 0.25 --image_path 'path/to/image.jpg' --clean_feature_path 'path/to/clean_feature_images' --weight 'path/to/model/weight.pth'
+python main.py --n 100 --m 0.51 --delta 0.25 --image_path 'path/to/image_or_folder' --clean_feature_path 'path/to/clean_feature_images' --weight 'path/to/model/weight.pth'
 ```
-<br />
+
+- If `--image_path` is set to a single jpg image, the script will analyze that image and output whether it is poisoned or clean.
+- If `--image_path` is set to a folder, the script will analyze all jpg images in the folder, classifying them as 'modified' or 'clean'. It will then output the False Accept Rate (FAR) and False Reject Rate (FRR) for the analyzed images.
+
+<br /><br />
 
 ### Additional Customization
 
