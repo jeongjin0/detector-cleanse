@@ -1,8 +1,6 @@
 import torch
-
 import numpy as np
 from tqdm import tqdm
-
 import argparse
 from PIL import Image
 import random
@@ -15,8 +13,6 @@ from transform import preprocess
 import warnings
 warnings.filterwarnings("ignore")
 
-
-
 def parse_arguments():
     parser = argparse.ArgumentParser(description='Run Detector Cleanse on an image')
     parser.add_argument('--n', type=int, required=True, help='Number of features to randomly select')
@@ -24,7 +20,6 @@ def parse_arguments():
     parser.add_argument('--delta', type=float, required=True, help='Detection threshold')
     parser.add_argument('--alpha', type=float, default=0.5, help='Blending ratio')
     parser.add_argument('--iouthresh', type=float, default=0.5, help='Threshold iou')
-
     parser.add_argument('--image_path', type=str, default='images', help='Path to the image(s) to be analyzed')
     parser.add_argument('--clean_feature_path', type=str ,default='clean_feature_images', help='Path to the clean_feature image folder')
     parser.add_argument('--weight', type=str, required=True, help='Path to weight of the model')
@@ -58,21 +53,16 @@ def main():
     print("Detecting")
     if 'jpg' not in args.image_path:
         image_files = glob.glob(f'{args.image_path}/*.jpg')
-
-        total_clean = 0
-        total_poison = 0
-        false_accept = 0
-        false_reject = 0
-        success = 0
-
+        total_clean, total_poison = 0, 0
+        false_accept, false_reject, success = 0, 0, 0
         pbar = tqdm(image_files)
+        
         for image_file in pbar:
             f = Image.open(image_file)
             ori_img = f.convert('RGB')
             ori_img = np.asarray(ori_img, dtype=np.float32)
             ori_img = ori_img.transpose((2, 0, 1))
             img = preprocess(ori_img)
-
             poisoned, coordinates = detector_cleanse(img, model, clean_features, args.m, args.delta, args.alpha, args.iouthresh)
 
             if "modified" in image_file:
@@ -90,9 +80,7 @@ def main():
             
             far = false_accept/total_poison if total_poison != 0 else 0
             frr = false_reject/total_clean if total_clean != 0 else 0
-            
             pbar.set_description(f"accuracy {success/(total_clean + total_poison)} FAR {far},{total_poison} FRR {frr},{total_clean}")
-            
 
         print(total_clean)
         print(total_poison)
@@ -105,16 +93,13 @@ def main():
         ori_img = np.asarray(ori_img, dtype=np.float32)
         ori_img = ori_img.transpose((2, 0, 1))
         img = preprocess(ori_img)
-
         poisoned, coordinates = detector_cleanse(img, model, clean_features, args.m, args.delta, args.alpha, args.iouthresh)
 
         if poisoned:
-            print()
-            print("Image is poisoned")
+            print("\nImage is poisoned")
             print(f"Coordinate : {coordinates}")
         else:
-            print()
-            print("Image is clean")
+            print("\nImage is clean")
 
 if __name__ == "__main__":
     main()
