@@ -19,7 +19,6 @@ pip install gdown
 gdown https://drive.google.com/file/d/1Qj_5s84HXdgDWG3KRn-zW7oIRGvrouer/view?usp=sharing
 unzip clean_feature_images.zip
 ```
-<br />
 
 ### Setting up the Environment
 
@@ -55,7 +54,6 @@ python main.py --n 100 --m 0.51 --delta 0.25 --image_path 'path/to/image_or_fold
 - If `--image_path` is set to a single jpg image, the script will analyze that image and output whether it is poisoned or clean.
 - If `--image_path` is set to a folder, the script will analyze all jpg images in the folder, classifying them as 'modified' or 'clean'. It will then output the False Accept Rate (FAR) and False Reject Rate (FRR) for the analyzed images.
 
-<br /><br />
 
 ### Additional Customization
 
