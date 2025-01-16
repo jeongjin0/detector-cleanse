@@ -1,6 +1,6 @@
 # Detector Cleanse
 
-This repository is an unofficial implementation of Detector Cleanse. The implementation is based on the algorithm introduced in the paper [BadDet: Backdoor Attacks on Object Detection](https://arxiv.org/abs/2205.14497).
+This repository is an ***"unofficial"*** implementation of Detector Cleanse. The implementation is based on the algorithm introduced in the paper [BadDet: Backdoor Attacks on Object Detection](https://arxiv.org/abs/2205.14497).
 
 ![example](imgs/example.jpg)
 <br /><br />
@@ -73,6 +73,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ### Algorithm
 
-The image below represents the Detector Cleanse algorithm as outlined in the BadDet Appendix.
+The image below it the Detector Cleanse algorithm as outlined in the BadDet Appendix.
 
 ![Algorithm](imgs/algorithm.jpg)
